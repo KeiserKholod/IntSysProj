@@ -12,7 +12,7 @@ namespace prj1
 
         private List<string> commands;
         private IntelSys intelSys;
-        private Dictionary<string, string> parsedArgs;
+        public Dictionary<string, string> parsedArgs;
         public CLIHandler(IntelSys intelSys)
         {
             this.intelSys = intelSys;
@@ -22,17 +22,19 @@ namespace prj1
             commands.Add("-c"); commands.Add("--change-db");
             commands.Add("-q"); commands.Add("--question");
             commands.Add("-p"); commands.Add("--path");
+            commands.Add("-f"); commands.Add("--file");
         }
 
 
         public string GetHelp()
         {
             string help = "HELP:\n" +
-                "-c --change-db - change DB to connect\n" +
-                "-a --answer - get answer\n" +
-                "-q --question - string question\n" +
-                "-p --path - path to file with question\n" +
-                "-h --help - to get this message";
+                "-c --change-db <db-name> - change DB to connect\n" +
+                "-a --answer              - get answer\n" +
+                "-q --question <question> - string question\n" +
+                "-p --path <path>         - path to file with question\n" +
+                "-f --f <path>            - path to file with text database\n" +
+                "-h --help                - to get this message";
             return help;
         }
 
@@ -89,7 +91,7 @@ namespace prj1
 
             }
 
-            debugArgs();
+            //debugArgs();
             ImplementArgs();
         }
     }

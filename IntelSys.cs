@@ -13,7 +13,7 @@ namespace ProcessingTextFile
 
         }
 
-        public string[,] ReadInputData(StreamReader streamReader)
+        public string[,] GetExpertData(StreamReader streamReader)
         {
             using (streamReader)
             {
@@ -35,32 +35,14 @@ namespace ProcessingTextFile
             return conditions;
         }
 
-        public string[,] ReadInputData(string conditionsFileText)
+        public string GetAnalisysData(StreamReader streamReader)
         {
-
-            // Получаем предложения ЕСЛИ и ТО.
-            conditionsFileText = conditionsFileText.Replace(".", "");
-            string[] wordsA;
-            wordsA = conditionsFileText.Split(new string[] { "Если ", ", то", }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Записываем по индексам ЕСЛИ и ТО.
-            conditions = new string[wordsA.Length / 2, 2];
-            for (int i = 0; i < conditions.GetLength(0); i++)
-            {
-                conditions[i, 0] = i + 1 == 1 ? wordsA[i] : wordsA[i + i];
-                conditions[i, 1] = wordsA[i + 1 == 2 ? i + 2 : i + i + 1];
-            }
-
-            return conditions;
+            string fileText = streamReader.ReadToEnd();
+            return fileText;
         }
 
-        public string GetAnalisysData(String FILE_FOR_ANALYSIS_PATH)
+        public string GetAnalisysData(String fileText)
         {
-            string fileText;
-            using (StreamReader streamReader = new StreamReader(FILE_FOR_ANALYSIS_PATH, Encoding.UTF8))
-            {
-                fileText = streamReader.ReadToEnd();
-            }
             return fileText;
         }
 

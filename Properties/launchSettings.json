@@ -2,7 +2,7 @@
   "profiles": {
     "prj1": {
       "commandName": "Project",
-      "commandLineArgs": "-a"
+      "commandLineArgs": "-a -f \"ВВОДИМЫЕ УСЛОВИЯ ДЛЯ ДВУХМЕРНОГО МАССИВА.txt\" -p \"ЛегкийТест.txt\""
     },
     "debugPrj1": {
       "commandName": "Executable"
