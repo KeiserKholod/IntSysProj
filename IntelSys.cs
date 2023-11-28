@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,22 @@ namespace ProcessingTextFile
     internal class IntelSys
     {
         private static string[,] conditions = null;
-        public static void GetAnswer()
+        public string CSVOut = "outDB1.csv";
+        private string result;
+        private void WriteCSV(string path, string if_txt, string then_txt)
         {
+            string readText = "";
+            try
+            {
+                readText = File.ReadAllText(path);
+            }
+            catch
+            {
+                readText = "IF_Statement, THEN_Statement]";
+            }
+            string result = readText + "\n" + if_txt + "; " + then_txt;
+            Console.WriteLine(then_txt);
+            File.WriteAllText(path, result);
 
         }
 
@@ -33,6 +48,31 @@ namespace ProcessingTextFile
                 }
             }
             return conditions;
+        }
+
+        public string[,] GetExpertData(StreamReader streamReader, bool csv)
+        {
+            using (streamReader)
+            {
+                List<string> listIF = new List<string>();
+                List<string> listTHEN = new List<string>();
+                while (!streamReader.EndOfStream)
+                {
+                    var line = streamReader.ReadLine();
+                    var values = line.Split(';');
+
+                    listIF.Add(values[0]);
+                    listTHEN.Add(values[1]);
+                }
+
+                conditions = new string[listIF.Count, 2];
+                for (int i = 0; i < conditions.GetLength(0); i++)
+                {
+                    conditions[i, 0] = listIF[i];
+                    conditions[i, 1] = listTHEN[i];
+                }
+                return conditions;
+            }
         }
 
         public string GetAnalisysData(StreamReader streamReader)
@@ -66,6 +106,7 @@ namespace ProcessingTextFile
                         if (fileText.Contains(statementAParts[i]) && fileText.Contains(statementAParts[i + 1]))
                         {
                             Console.WriteLine(statement.StatementB);
+                            result = statement.StatementB;
                         }
                         break;
 
@@ -73,6 +114,7 @@ namespace ProcessingTextFile
                         if (fileText.Contains(statementAParts[i]) || fileText.Contains(statementAParts[i + 1]))
                         {
                             Console.WriteLine(statement.StatementB);
+                            result = statement.StatementB;
                         }
                         break;
 
@@ -82,11 +124,13 @@ namespace ProcessingTextFile
                             if (fileText.Contains(statementAParts[i]))
                             {
                                 Console.WriteLine(statement.StatementB);
+                                result = statement.StatementB;
                             }
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine($"Была поймана ошибка: {ex}");
+                            result = "Ответ не найден";
                         }
                         break;
 
@@ -126,6 +170,7 @@ namespace ProcessingTextFile
             {
                 this.FindAnswerIteration(statements[i], fileText);
             }
+            this.WriteCSV(CSVOut, fileText, result);
         }
 
         internal static void GetSeparatingSymbols(Statement statement, ref string[] splittersSymbolsA/*, ref string[] splittersSymbolsB*/)

@@ -57,13 +57,30 @@ namespace ProcessingTextFile
                 StreamReader streamReader = new StreamReader(textDBPath, Encoding.UTF8);
                 conditions = intelSys.GetExpertData(streamReader);
             }
-            if (cliHandler.parsedArgs.ContainsKey("--file"))
+            else if (cliHandler.parsedArgs.ContainsKey("--file"))
             {
                 var textDBPath = cliHandler.parsedArgs["--file"];
                 StreamReader streamReader = new StreamReader(textDBPath, Encoding.UTF8);
                 conditions = intelSys.GetExpertData(streamReader);
             }
+            else if (cliHandler.parsedArgs.ContainsKey("-c"))
+            {
+                var textDBPath = cliHandler.parsedArgs["-c"];
+                StreamReader streamReader = new StreamReader(textDBPath, Encoding.UTF8);
+                conditions = intelSys.GetExpertData(streamReader, true);
+            }
+            else if (cliHandler.parsedArgs.ContainsKey("--csv"))
+            {
+                var textDBPath = cliHandler.parsedArgs["--csv"];
+                StreamReader streamReader = new StreamReader(textDBPath, Encoding.UTF8);
+                conditions = intelSys.GetExpertData(streamReader,true);
+            }
+            else
+            {
+                StreamReader streamReader = new StreamReader(CONDITIONS_FILE_PATH, Encoding.UTF8);
+                conditions = intelSys.GetExpertData(streamReader);
 
+            }
 
             intelSys.FindAnswer(fileText);
 

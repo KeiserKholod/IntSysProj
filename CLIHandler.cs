@@ -29,7 +29,7 @@ namespace prj1
         public string GetHelp()
         {
             string help = "HELP:\n" +
-                "-c --change-db <db-name> - change DB to connect\n" +
+                "-c --csv <path to csv> - get expert data from csv\n" +
                 "-a --answer              - get answer\n" +
                 "-q --question <question> - string question\n" +
                 "-p --path <path>         - path to file with question\n" +
