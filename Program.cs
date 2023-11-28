@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prj1;
+using System;
 using System.IO;
 using System.Text;
 
@@ -11,10 +12,11 @@ namespace ProcessingTextFile
 
         private static string[,] conditions = null;
 
-
-
-        static void Main()
+        static void Main(string[] args)
         {
+            var cliHandler = new CLIHandler();
+            cliHandler.ParseArgs(args);
+
             var intelSys = new IntelSys();
             conditions = intelSys.ReadInputData(CONDITIONS_FILE_PATH);
             var fileText = intelSys.GetAnalisysData(FILE_FOR_ANALYSIS_PATH);

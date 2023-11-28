@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "prj1": {
+      "commandName": "Project",
+      "commandLineArgs": "-a"
+    },
+    "debugPrj1": {
+      "commandName": "Executable"
+    }
+  }
+}
