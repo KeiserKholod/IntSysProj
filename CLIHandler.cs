@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProcessingTextFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,10 @@ namespace prj1
     class CLIHandler
     {
         private List<string> commandsArr;
-        public CLIHandler()
+        private IntelSys intelSys;
+        public CLIHandler(IntelSys intelSys)
         {
+            this.intelSys = intelSys;
             this.commandsArr = new List<string>();
             commandsArr.Add("-h"); commandsArr.Add("--help");
             commandsArr.Add("-a"); commandsArr.Add("-answer");

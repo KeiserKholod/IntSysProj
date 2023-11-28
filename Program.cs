@@ -14,11 +14,13 @@ namespace ProcessingTextFile
 
         static void Main(string[] args)
         {
-            var cliHandler = new CLIHandler();
+            var intelSys = new IntelSys();
+            var cliHandler = new CLIHandler(intelSys);
             cliHandler.ParseArgs(args);
 
-            var intelSys = new IntelSys();
-            conditions = intelSys.ReadInputData(CONDITIONS_FILE_PATH);
+            StreamReader streamReader = new StreamReader(CONDITIONS_FILE_PATH, Encoding.UTF8);
+            conditions = intelSys.ReadInputData(streamReader);
+
             var fileText = intelSys.GetAnalisysData(FILE_FOR_ANALYSIS_PATH);
             intelSys.FindAnswer(fileText);
 

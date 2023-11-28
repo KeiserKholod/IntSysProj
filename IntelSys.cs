@@ -13,9 +13,9 @@ namespace ProcessingTextFile
 
         }
 
-        public string[,] ReadInputData(String CONDITIONS_FILE_PATH)
+        public string[,] ReadInputData(StreamReader streamReader)
         {
-            using (StreamReader streamReader = new StreamReader(CONDITIONS_FILE_PATH, Encoding.UTF8))
+            using (streamReader)
             {
                 string conditionsFileText;
                 conditionsFileText = streamReader.ReadToEnd().Replace(".", "");
@@ -32,6 +32,25 @@ namespace ProcessingTextFile
                     conditions[i, 1] = wordsA[i + 1 == 2 ? i + 2 : i + i + 1];
                 }
             }
+            return conditions;
+        }
+
+        public string[,] ReadInputData(string conditionsFileText)
+        {
+
+            // Получаем предложения ЕСЛИ и ТО.
+            conditionsFileText = conditionsFileText.Replace(".", "");
+            string[] wordsA;
+            wordsA = conditionsFileText.Split(new string[] { "Если ", ", то", }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Записываем по индексам ЕСЛИ и ТО.
+            conditions = new string[wordsA.Length / 2, 2];
+            for (int i = 0; i < conditions.GetLength(0); i++)
+            {
+                conditions[i, 0] = i + 1 == 1 ? wordsA[i] : wordsA[i + i];
+                conditions[i, 1] = wordsA[i + 1 == 2 ? i + 2 : i + i + 1];
+            }
+
             return conditions;
         }
 
