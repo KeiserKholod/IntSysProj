@@ -23,6 +23,7 @@ namespace prj1
             commands.Add("-q"); commands.Add("--question");
             commands.Add("-p"); commands.Add("--path");
             commands.Add("-f"); commands.Add("--file");
+            commands.Add("-o"); commands.Add("--output");
         }
 
 
@@ -34,6 +35,7 @@ namespace prj1
                 "-q --question <question> - string question\n" +
                 "-p --path <path>         - path to file with question\n" +
                 "-f --f <path>            - path to file with text database\n" +
+                "-o --output <path>       - path to output file with csv database\n" +
                 "-h --help                - to get this message";
             return help;
         }

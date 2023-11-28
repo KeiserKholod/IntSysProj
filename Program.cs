@@ -82,6 +82,16 @@ namespace ProcessingTextFile
 
             }
 
+            //выводной CSV
+            if (cliHandler.parsedArgs.ContainsKey("-o"))
+            {
+                intelSys.CSVOut = cliHandler.parsedArgs["-o"];
+            }
+            else if (cliHandler.parsedArgs.ContainsKey("--output"))
+            {
+                intelSys.CSVOut = cliHandler.parsedArgs["--output"];
+            }
+
             intelSys.FindAnswer(fileText);
 
             Console.ReadLine();

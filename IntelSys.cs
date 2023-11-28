@@ -20,10 +20,9 @@ namespace ProcessingTextFile
             }
             catch
             {
-                readText = "IF_Statement, THEN_Statement]";
+                readText = "IF_Statement, THEN_Statement";
             }
             string result = readText + "\n" + if_txt + "; " + then_txt;
-            Console.WriteLine(then_txt);
             File.WriteAllText(path, result);
 
         }

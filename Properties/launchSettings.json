@@ -2,7 +2,7 @@
   "profiles": {
     "prj1": {
       "commandName": "Project",
-      "commandLineArgs": "-a -c \"db1.csv\" -p \"ЛегкийТест.txt\""
+      "commandLineArgs": "-a -c \"db1.csv\" -p \"ЛегкийТест.txt\" --output \"outDB1.csv\""
     },
     "debugPrj1": {
       "commandName": "Executable"
