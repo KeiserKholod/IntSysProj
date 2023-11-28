@@ -18,6 +18,7 @@ namespace ProcessingTextFile
             var cliHandler = new CLIHandler(intelSys);
             cliHandler.ParseArgs(args);
 
+
             StreamReader streamReader = new StreamReader(CONDITIONS_FILE_PATH, Encoding.UTF8);
             conditions = intelSys.ReadInputData(streamReader);
 

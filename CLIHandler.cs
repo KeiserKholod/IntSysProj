@@ -9,20 +9,22 @@ namespace prj1
 {
     class CLIHandler
     {
-        private List<string> commandsArr;
+
+        private List<string> commands;
         private IntelSys intelSys;
+        private Dictionary<string, string> parsedArgs;
         public CLIHandler(IntelSys intelSys)
         {
             this.intelSys = intelSys;
-            this.commandsArr = new List<string>();
-            commandsArr.Add("-h"); commandsArr.Add("--help");
-            commandsArr.Add("-a"); commandsArr.Add("-answer");
-            commandsArr.Add("-c"); commandsArr.Add("--change-db");
-            commandsArr.Add("-q"); commandsArr.Add("--question");
-            commandsArr.Add("-p"); commandsArr.Add("--path");
+            this.commands = new List<string>();
+            commands.Add("-h"); commands.Add("--help");
+            commands.Add("-a"); commands.Add("-answer");
+            commands.Add("-c"); commands.Add("--change-db");
+            commands.Add("-q"); commands.Add("--question");
+            commands.Add("-p"); commands.Add("--path");
         }
 
-        private List<Dictionary<string, string>> parsedArgs;
+
         public string GetHelp()
         {
             string help = "HELP:\n" +
@@ -41,57 +43,48 @@ namespace prj1
 
         private void debugArgs()
         {
-            foreach (var item in parsedArgs)
+            foreach (var d in parsedArgs)
             {
-                foreach (var d in item)
-                {
-                    Console.WriteLine(d.Key + " " + d.Value);
-                }
+                Console.WriteLine(d.Key + " " + d.Value);
             }
         }
 
         private void ImplementArgs()
         {
-            foreach (var item in parsedArgs)
-            {
-                foreach (var pair in item)
-                {
-                    var key = pair.Key;
-                    var val = pair.Value;
-                    if (!(this.commandsArr.Contains(key)))
-                    {
-                        Console.WriteLine(GetError());
-                        Console.WriteLine(GetHelp());
-                        System.Environment.Exit(1);
-                    }
-                    if (key.Equals("-h") || key.Equals("--help"))
-                    {
-                        Console.WriteLine(GetHelp());
-                        System.Environment.Exit(1);
-                    }
 
+            foreach (var pair in parsedArgs)
+            {
+                var key = pair.Key;
+                var val = pair.Value;
+                if (!(this.commands.Contains(key)))
+                {
+                    Console.WriteLine(GetError());
+                    Console.WriteLine(GetHelp());
+                    System.Environment.Exit(1);
                 }
+                if (key.Equals("-h") || key.Equals("--help"))
+                {
+                    Console.WriteLine(GetHelp());
+                    System.Environment.Exit(1);
+                }
+
             }
         }
 
         public void ParseArgs(string[] args)
         {
-            this.parsedArgs = new List<Dictionary<string, string>>();
-            Dictionary<string, string> prevDict = null;
+            this.parsedArgs = new Dictionary<string, string>();
             string prevKey = "";
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i][0].Equals('-'))
                 {
-                    var keyValue = new Dictionary<string, string>();
-                    prevDict = keyValue;
                     prevKey = args[i];
-                    keyValue.Add(args[i], null);
-                    parsedArgs.Add(keyValue);
+                    parsedArgs.Add(args[i], null);
                 }
                 else
                 {
-                    prevDict[prevKey] = args[i];
+                    parsedArgs[prevKey] = args[i];
                 }
 
             }
